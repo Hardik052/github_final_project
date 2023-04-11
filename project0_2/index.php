@@ -1,6 +1,5 @@
 <?php
 
-
 /*******w******** 
     
     Name: Hardik Bhardwaj
@@ -27,11 +26,6 @@ $statement->execute();
 
 }
 
-$statement = $db->prepare($query);  
-
-// Execution on the DB server is delayed until we execute().
-$statement->execute();
- // A PDO::Statement is prepared from the query.
 
 
  
