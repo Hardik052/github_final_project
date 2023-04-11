@@ -14,6 +14,24 @@
 require('connect.php');
 require('authenticate.php');
 
+function file_is_an_image($temporary_path, $new_path) {
+    $allowed_mime_types      = ['image/gif', 'image/jpeg', 'image/png'];
+    $allowed_file_extensions = ['gif', 'jpg', 'jpeg', 'png'];
+    
+    $actual_file_extension   = pathinfo($new_path, PATHINFO_EXTENSION);
+    $file_extension_is_valid = in_array($actual_file_extension, $allowed_file_extensions);
+
+    $mime_type_is_valid = false;
+    if($file_extension_is_valid){
+        $actual_mime_type        = getimagesize($temporary_path)['mime'];
+        $mime_type_is_valid      = in_array($actual_mime_type, $allowed_mime_types);
+    }
+    
+    
+    return $file_extension_is_valid && $mime_type_is_valid;
+}
+     
+
 if($_POST && trim($_POST['title'])!='' && trim($_POST['content']) != ''){
     
     $filename = $_FILES["uploadfile"]["name"];
@@ -21,9 +39,10 @@ if($_POST && trim($_POST['title'])!='' && trim($_POST['content']) != ''){
    $folder = "./image/" . $filename;
     $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 
-    $query = "INSERT INTO products(product_name, product_description, product_image ) VALUES(:product_name, :product_description, :product_image)";
+    $query = "INSERT INTO products(product_name, product_description, product_image, category_id ) VALUES(:product_name, :product_description, :product_image, :category)";
 
     $statement = $db->prepare($query);
 
@@ -32,18 +51,40 @@ if($_POST && trim($_POST['title'])!='' && trim($_POST['content']) != ''){
         $statement->bindValue(':product_name', $title);
         $statement->bindValue(':product_description', $content);
         $statement->bindValue(':product_image', $filename);
+        $statement->bindValue(':category', $category);
 
         if($statement->execute()){
             echo "Your content has been uploaded successfully !!";
         }else{
             echo"error";
         }
+
         if (move_uploaded_file($tempname, $folder)) {
             echo "<h3>  Image uploaded successfully!</h3>";
         } else {
             echo "<h3>  No image uploaded !</h3>";
         }
+        
 }
+function loading_categories(){
+    global $db;
+
+    $query = "SELECT * FROM category ;";
+        // preparring sql for executoin
+    $statement = $db->prepare($query);
+    
+        //executing sql
+    $statement->execute();
+    $categories = [];
+    while ($x = $statement->fetch() ){
+        $categories[] = $x;
+        
+    }
+    
+    return $categories;
+   
+}
+$row = loading_categories();
 
 ?>
 
@@ -88,6 +129,13 @@ if($_POST && trim($_POST['title'])!='' && trim($_POST['content']) != ''){
         <div class="form-group">
                 <input class="form-control" type="file" name="uploadfile" value="" />
             </div>
+
+            <label for="category">Category</label> 
+        <select name="category">
+            <?php foreach($row as $category_type): ?>
+                <option value="<?= $category_type['category_id'] ?>"> <?= $category_type['category_name'] ?> </option>
+            <?php endforeach ?>
+        </select>
 
         <input type="submit">
 
