@@ -17,14 +17,28 @@ $statement->execute();
 
 
 if(isset($_POST['nameSort'])){
-    $query = "SELECT * FROM products  ORDER BY product_name DESC LIMIT 10  ";
+    $query = "SELECT * FROM products  ORDER BY product_name ASC   ";
 
     $statement = $db->prepare($query);  
 
 // Execution on the DB server is delayed until we execute().
 $statement->execute(); 
 
+}if (isset($_POST['uploadSort'])){
+    $query = "SELECT * FROM products  ORDER BY product_date DESC   ";
+
+    $statement = $db->prepare($query);  
+
+// Execution on the DB server is delayed until we execute().
+$statement->execute(); 
+
+
 }
+$statement = $db->prepare($query);  
+
+// Execution on the DB server is delayed until we execute().
+$statement->execute(); 
+
 
 
 
