@@ -14,22 +14,33 @@
 require('connect.php');
 require('authenticate.php');
 
-function file_is_an_image($temporary_path, $new_path) {
+$filename = $_FILES["uploadfile"]["name"];
+$tempname = $_FILES["uploadfile"]["tmp_name"];
+ $folder = "./image/" . $filename;
+  $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+
+
+function file_is_an_image($tempname, $filename) {
     $allowed_mime_types      = ['image/gif', 'image/jpeg', 'image/png'];
     $allowed_file_extensions = ['gif', 'jpg', 'jpeg', 'png'];
     
-    $actual_file_extension   = pathinfo($new_path, PATHINFO_EXTENSION);
+    $actual_file_extension   = pathinfo($filename, PATHINFO_EXTENSION);
     $file_extension_is_valid = in_array($actual_file_extension, $allowed_file_extensions);
 
     $mime_type_is_valid = false;
     if($file_extension_is_valid){
-        $actual_mime_type        = getimagesize($temporary_path)['mime'];
+        $actual_mime_type        = getimagesize($tempname)['mime'];
         $mime_type_is_valid      = in_array($actual_mime_type, $allowed_mime_types);
     }
     
     
     return $file_extension_is_valid && $mime_type_is_valid;
 }
+
+
      
 
 if($_POST && trim($_POST['title'])!='' && trim($_POST['content']) != ''){
@@ -40,6 +51,15 @@ if($_POST && trim($_POST['title'])!='' && trim($_POST['content']) != ''){
     $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+    if(file_is_an_image($tempname, $filename)){
+        $filename = $_FILES["uploadfile"]["name"];
+
+    }else{
+        $filename = `NULL`;
+
+    }
+
 
 
     $query = "INSERT INTO products(product_name, product_description, product_image, category_id ) VALUES(:product_name, :product_description, :product_image, :category)";
@@ -58,12 +78,18 @@ if($_POST && trim($_POST['title'])!='' && trim($_POST['content']) != ''){
         }else{
             echo"error";
         }
-
+     
+        if(file_is_an_image($tempname, $filename)){
         if (move_uploaded_file($tempname, $folder)) {
             echo "<h3>  Image uploaded successfully!</h3>";
-        } else {
+        }
+        } 
+        else {
             echo "<h3>  No image uploaded !</h3>";
         }
+    
+     
+
         
 }
 function loading_categories(){
