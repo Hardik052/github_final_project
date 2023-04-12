@@ -106,6 +106,12 @@ $statement->execute();
                         <td><?= $row['product_description']?></td>
                         <?php endif ?>
             </tr>
+            <tr>
+            <?php 
+            $folder = "./image/". $row['product_image'];
+            ?>
+            <img src="<?= $folder ?>" alt="image:)">
+            </tr>
         </table>
         <?php endwhile ?>
   

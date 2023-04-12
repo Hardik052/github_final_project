@@ -4,6 +4,30 @@
 require('connect.php');
 require('authenticate.php');
 
+
+  $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+
+
+function file_is_an_image($tempname, $filename) {
+    $allowed_mime_types      = ['image/gif', 'image/jpeg', 'image/png'];
+    $allowed_file_extensions = ['gif', 'jpg', 'jpeg', 'png'];
+    
+    $actual_file_extension   = pathinfo($filename, PATHINFO_EXTENSION);
+    $file_extension_is_valid = in_array($actual_file_extension, $allowed_file_extensions);
+
+    $mime_type_is_valid = false;
+    if($file_extension_is_valid){
+        $actual_mime_type        = getimagesize($tempname)['mime'];
+        $mime_type_is_valid      = in_array($actual_mime_type, $allowed_mime_types);
+    }
+    
+    
+    return $file_extension_is_valid && $mime_type_is_valid;
+}
+
 if ($_POST && isset($_POST['title']) && isset($_POST['content']) && isset($_POST['id'])) {
 
     $filename = $_FILES["uploadfile"]["name"];
@@ -14,7 +38,15 @@ if ($_POST && isset($_POST['title']) && isset($_POST['content']) && isset($_POST
     $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
     
-   
+    if(file_is_an_image($tempname, $filename)){
+        $filename = $_FILES["uploadfile"]["name"];
+
+    }else{
+        $filename = `NULL`;
+
+    }
+
+
     $query = "UPDATE products SET product_name = :title, product_description = :content, product_image = :product_image WHERE product_id = :id";
     $statement = $db->prepare($query);
     $statement->bindValue(':title', $title);        
@@ -25,6 +57,14 @@ if ($_POST && isset($_POST['title']) && isset($_POST['content']) && isset($_POST
     
     // Execute the INSERT.
     $statement->execute();
+    if(file_is_an_image($tempname, $filename)){
+        if (move_uploaded_file($tempname, $folder)) {
+            echo "<h3>  Image uploaded successfully!</h3>";
+        }
+        } 
+        else {
+            echo "<h3>  No image uploaded !</h3>";
+        }
     
     // Redirect after update.
     header("Location:index.php?id={$id}");
@@ -87,8 +127,9 @@ else {
         <label for="content">content</label>
         <input name="content" id="content" value="<?=$blog['product_description']?>">
         <div class="form-group">
-                <input class="form-control" type="file" name="uploadfile" value="<?=$blog['product_image']?>" />
+                <input class="form-control" type="file" name="uploadfile" value="" />
             </div>
+
             <label for="delete_image">Check Here to Delete Image: </label>
         <input type="checkbox" name="delete_image" id="delete_image" value="delete_image">;
         <input type="submit" value="edit">
