@@ -86,10 +86,13 @@ else {
         &nbsp;  &nbsp;  &nbsp; 
         <label for="content">content</label>
         <input name="content" id="content" value="<?=$blog['product_description']?>">
-        <input type="submit" value="edit">
         <div class="form-group">
-                <input class="form-control" type="file" name="uploadfile" value="" />
+                <input class="form-control" type="file" name="uploadfile" value="<?=$blog['product_image']?>" />
             </div>
+            <label for="delete_image">Check Here to Delete Image: </label>
+        <input type="checkbox" name="delete_image" id="delete_image" value="delete_image">;
+        <input type="submit" value="edit">
+      
         
         </form>
         <form method="post" action="delete.php?id=<?=$blog['product_id']?>">

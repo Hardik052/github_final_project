@@ -9,11 +9,11 @@
 ****************/
 
 require('connect.php');
-if (isset($_GET['id'])) { // Retrieve quote to be edited, if id GET parameter is in URL.
-        $id = filter_input(INPUT_GET, 'product_id', FILTER_SANITIZE_NUMBER_INT);
+if (isset($_POST['delete_id'])) { // Retrieve quote to be deleted, if id GET parameter is in URL.
+        $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
         
         // Build SQL query
-        $query = "DELETE FROM shopserver WHERE product_id = :product_id";
+        $query = "DELETE FROM products WHERE product_id = :product_id";
         $statement = $db->prepare($query);
         $statement->bindValue(':product_id', $id, PDO::PARAM_INT);
     
@@ -58,9 +58,9 @@ if (isset($_GET['id'])) { // Retrieve quote to be edited, if id GET parameter is
     <a href="post.php">New Post</a>
     <h1><a href="index.php">My Amazing blog</a></h1>
     <p>Click delete to delete the data !</p>
-<form method="post" action="delete.php">
-                <input type="hidden" name="id" value="<?= $rows['id'] ?>">
-                <input type="submit" value="delete">
+<form method="post" action="">
+                <input type="hidden"  value="<?= $rows['id'] ?>">
+                <button type="submit" value="delete" name="delete_id" id="delete_id">DELETE</button>
             </form>
 
 </form>
