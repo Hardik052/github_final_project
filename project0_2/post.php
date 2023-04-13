@@ -14,9 +14,8 @@
 require('connect.php');
 require('authenticate.php');
 
-$filename = $_FILES["uploadfile"]["name"];
-$tempname = $_FILES["uploadfile"]["tmp_name"];
- $folder = "./image/" . $filename;
+
+ 
   $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);

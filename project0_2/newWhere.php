@@ -22,28 +22,7 @@ $query = "SELECT * FROM products WHERE product_id = :product_id LIMIT 1";
 
 
 ?>
-<?php
 
-if($_POST && trim($_POST['comment'])!=''){
-
-$content1 = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$query1 = "INSERT INTO comments(comment_comment) VALUES(:comment_comment)";
-
- // A PDO::Statement is prepared from the query.
- $statement1 = $db->prepare($query1);  
-
-
- // Execution on the DB server is delayed until we execute().
- $statement1->bindValue(':comment_comment', $content1);
- $statement1->execute(); 
- $row1 = $statement1->fetch();
- if($statement->execute()){
-    echo "Your content has been uploaded successfully !!";
-}else{
-    echo"error";
-}
-}
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -83,11 +62,18 @@ $query1 = "INSERT INTO comments(comment_comment) VALUES(:comment_comment)";
     <h2>Product Description</h2>
     <p><?= $row['product_description'] ?></p>
     <p><a href="edit.php?id=<?=$row['product_id']?>">edit</a></p>
-    <form method= "post">
+    <form method= "POST" action="comment.php" class="form-horizontal">
+        <input type="hidden" name="id" value=<?php echo $id?>>
         <label for="comment">Add Comment</label>
-        <input type="text" name="comment" id="comment">
-        <input type="submit" value="Add comment" name="submit_comment">
+        <textarea name="comment" placeholder="comment" class="form-control" cols="10" rows="5"></textarea>
+        <input type="submit" value="Comment" name="postComment">
     </form>
+   
+</div>
+
+<div>
+    <h1>All Comments</h1>
+   
    
 </div>
 </body>
