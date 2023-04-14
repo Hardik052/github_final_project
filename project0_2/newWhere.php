@@ -20,6 +20,33 @@ $query = "SELECT * FROM products WHERE product_id = :product_id LIMIT 1";
  $statement->execute(); 
  $row = $statement->fetch();
 
+ function loading_comments(){
+    global $db;
+
+    $id= filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+    $load_comments = "SELECT * FROM comments WHERE  product_id= :id ;";
+        // preparring sql for executoin
+    $statement = $db->prepare($load_comments);
+    
+        //bind
+    $statement->bindValue(':id', $id, PDO::PARAM_INT);
+    
+        //executing sql
+    $statement->execute();
+    //$row2 = $statement->fetch();
+    $comments = [];
+    while ($x = $statement->fetch() ){
+        $comments[] = $x;
+        
+    }
+    
+    return $comments;
+    
+}
+if(isset($_GET['id'])){
+    $row3 = loading_comments();    
+}
+
 
 ?>
 
@@ -73,7 +100,22 @@ $query = "SELECT * FROM products WHERE product_id = :product_id LIMIT 1";
 
 <div>
     <h1>All Comments</h1>
-   
+    <?php if(count($row3) > 0):
+            foreach ($row3 as $commentData): ?>
+                <div>
+            
+                <p><?= $commentData['comment_comment'] ?></p>
+
+                
+             
+
+                </div>
+            <?php endforeach;
+            else: ?>
+                <div>
+                    <h2>No comments here</h2>
+                </div>
+            <?php endif ?>
    
 </div>
 </body>

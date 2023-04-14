@@ -63,11 +63,11 @@ $statement->execute();
     <!-- nav bar-->
     <div id= "main_nav">
     <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="shop.php">Shop</a></li>
-        <li><a href="new_item.php">Sell / Donate</a></li>
-        <li><a href="contact_us.php">Contact Us</a></li>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="index.php">Shop</a></li>
         <li><a href="edit.php">Store Location</a></li>
+        <legend>Categories</legend>
+        <li><a href="nike.php">Nike</a> <a href="vans.php">Vans</a></li>
     </ul>
     </div>
 
