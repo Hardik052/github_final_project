@@ -19,6 +19,7 @@ require('authenticate.php');
   $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $product_price = filter_input(INPUT_GET, 'product_price', FILTER_SANITIZE_NUMBER_INT);
 
 
 
@@ -42,7 +43,7 @@ function file_is_an_image($tempname, $filename) {
 
      
 
-if($_POST && trim($_POST['title'])!='' && trim($_POST['content']) != ''){
+if($_POST && trim($_POST['title'])!='' && trim($_POST['content']) != '' && trim($_POST['product_price']) != ''){
     
     $filename = $_FILES["uploadfile"]["name"];
   $tempname = $_FILES["uploadfile"]["tmp_name"];
@@ -50,6 +51,7 @@ if($_POST && trim($_POST['title'])!='' && trim($_POST['content']) != ''){
     $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $product_price = filter_input(INPUT_POST, 'product_price', FILTER_SANITIZE_NUMBER_INT);
 
     if(file_is_an_image($tempname, $filename)){
         $filename = $_FILES["uploadfile"]["name"];
@@ -61,7 +63,7 @@ if($_POST && trim($_POST['title'])!='' && trim($_POST['content']) != ''){
 
 
 
-    $query = "INSERT INTO products(product_name, product_description, product_image, category_id ) VALUES(:product_name, :product_description, :product_image, :category)";
+    $query = "INSERT INTO products(product_name, product_description, product_image, category_id, product_price ) VALUES(:product_name, :product_description, :product_image, :category, :product_price)";
 
     $statement = $db->prepare($query);
 
@@ -71,6 +73,7 @@ if($_POST && trim($_POST['title'])!='' && trim($_POST['content']) != ''){
         $statement->bindValue(':product_description', $content);
         $statement->bindValue(':product_image', $filename);
         $statement->bindValue(':category', $category);
+        $statement->bindValue(':product_price', $product_price);
 
         if($statement->execute()){
             echo "Your content has been uploaded successfully !!";
@@ -90,6 +93,8 @@ if($_POST && trim($_POST['title'])!='' && trim($_POST['content']) != ''){
      
 
         
+}else {
+    echo " <h4>Fill out the required fields pls !(Required fields are:- *TITLE*, *DESCRIPTION* AND *PRODUCT PRICE*) </h4> ";
 }
 function loading_categories(){
     global $db;
@@ -161,6 +166,8 @@ $row = loading_categories();
                 <option value="<?= $category_type['category_id'] ?>"> <?= $category_type['category_name'] ?> </option>
             <?php endforeach ?>
         </select>
+        <label for="product_price">Product Price</label>
+        <input type="number" name="product_price" id="product_price">
 
         <input type="submit">
 
