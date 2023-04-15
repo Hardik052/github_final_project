@@ -9,6 +9,8 @@
         <input type="text" name="uid" placeholder="Username.." >
         <input type="password" name="pwd" placeholder="Password.." >
         <input type="password" name="pwdrepeat" placeholder="repeat password.." >
+        <input type="hidden" name="by_admin" value="false">
         <button type="submit" name="submit">Sign up</button>
     </form>
 </section>
+

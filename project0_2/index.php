@@ -58,12 +58,25 @@ $statement->execute();
 
 ?>
 
+<section class="index-intro">
+    <?php
+if(isset($_SESSION['useruid'])){
+           echo "<h4>Welcome ". $_SESSION['useruid'] . "</h4>";
+            
+        }
+        ?>
+</section>
+
 
     <div class="sorting">
         <form action="index.php" method="post">
-        <input type="submit" value="nameSort" name="nameSort" >
-        <input type="submit" value="upload date sort" name="uploadSort">
-        <input type="submit" value="priceSort" name="priceSort" >
+            <?php
+        if(isset($_SESSION['useruid'])){    
+        echo "<input type='submit' value='nameSort' name='nameSort' >";
+        echo "<input type='submit' value='upload date sort' name='uploadSort'>";
+        echo "<input type='submit' value='priceSort' name='priceSort' >";
+        }
+        ?>
      </form>
     </div>
     <div class="searchbar">

@@ -1,6 +1,34 @@
 <?php
-require 'connect.php';
+require '../connect.php';
 
+function login_user($user_name, $pass){
+    $user = user_name_exists($user_name, $user_name);
+
+    if(! $user){
+        // error login no info found
+        header("location: ../login.php?error='doesnot_exist'");
+        exit();
+    }
+
+    print_r ($user);
+    $pwd_hashed = $user['userPwd'];
+    $check_password = password_verify($pass, $pwd_hashed);
+
+    if(!$check_password){
+
+        // login failed
+        header("location: ../login_page.php?error='wrong_pass'");
+        exit();
+    }
+    else{
+        session_start();
+        $_SESSION['user_id']= $user['userId'];
+        $_SESSION['useruid']= $user['userUid'];
+        header("location: ../index.php");
+        exit();
+    }
+
+}
 
 
 function createUser($full_name, $user_name, $pass, $email, $by_admin){

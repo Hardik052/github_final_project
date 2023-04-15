@@ -1,10 +1,10 @@
 <?php
-
+require '../connect.php';
 require_once 'functions.inc.php';
 
 if(isset($_POST['submit']))
 {
-    $user_name = $_POST['user_name'];
+    $user_name = $_POST['name'];
     $pass = $_POST['pwd'];
 
     if(emptyInputLogin($user_name, $pass) ){
