@@ -84,6 +84,7 @@ if($_POST && trim($_POST['title'])!='' && trim($_POST['content']) != '' && trim(
         if(file_is_an_image($tempname, $filename)){
         if (move_uploaded_file($tempname, $folder)) {
             echo "<h3>  Image uploaded successfully!</h3>";
+            
         }
         } 
         else {

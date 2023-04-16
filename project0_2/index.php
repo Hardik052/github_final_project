@@ -61,7 +61,7 @@ $statement->execute();
 <section class="index-intro">
     <?php
 if(isset($_SESSION['useruid'])){
-           echo "<h4>Welcome ". $_SESSION['useruid'] . "</h4>";
+           echo "<h4>Currently, Logged in user is: ". $_SESSION['useruid'] .  "</h4>";
             
         }
         ?>

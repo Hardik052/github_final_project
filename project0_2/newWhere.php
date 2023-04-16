@@ -69,10 +69,18 @@ if(isset($_GET['id'])){
     <form method= "POST" action="comment.php" class="form-horizontal">
         <input type="hidden" name="id" value=<?php echo $id?>>
         <label for="comment">Add Comment</label>
-        <textarea name="comment" placeholder="comment" class="form-control" cols="10" rows="5"></textarea>
+        <?php
+if(isset($_SESSION['useruid'])){
+       echo "<textarea name='comment' placeholder='comment' class='form-control' cols='10' rows='5'></textarea>";
+} else {
+    echo "<textarea name='comment' placeholder='comment' class='form-control' cols='10' rows='5'></textarea>";
+    echo "<label for='name_comment'>Name</label>";
+    echo "<input type='text' name='name_comment' id='name_comment'>";
+
+}
+?>
         <input type="submit" value="Comment" name="postComment">
     </form>
-   
 </div>
 
 <div>
@@ -80,12 +88,11 @@ if(isset($_GET['id'])){
     <?php if(count($row3) > 0):
             foreach ($row3 as $commentData): ?>
                 <div>
-            
-                <p><?= $commentData['comment_comment'] ?></p>
-
-                
-             
-
+                    <?php
+                    
+                        echo $commentData['comment_comment']. "(".$commentData['name_comment'].")";
+                    ?>
+                    
                 </div>
             <?php endforeach;
             else: ?>
