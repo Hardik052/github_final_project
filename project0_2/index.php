@@ -1,13 +1,16 @@
 <?php
 include_once 'header.php';
+$login_user = false;
+$admin_access = false;
+if(array_key_exists('useruid', $_SESSION ) ){
+    $login_user =true;
 
-/*******w******** 
-    
-    Name: Hardik Bhardwaj
-    Date: 2023-02-05
-    Description: Making a blog website using php.
+    if($_SESSION['useruid'] == 'Admin5252'){
+        $admin_access = true;
+    }
+}
 
-****************/
+
 
 require('connect.php');
 $query = "SELECT * FROM products  ORDER BY product_id ASC LIMIT 10  ";

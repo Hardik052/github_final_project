@@ -1,5 +1,14 @@
 <?php
 include_once 'header.php';
+$login_user = false;
+$admin_access = false;
+if(array_key_exists('useruid', $_SESSION ) ){
+    $login_user =true;
+
+    if($_SESSION['useruid'] == 'Admin5252'){
+        $admin_access = true;
+    }
+}
 
 /*******w******** 
     
@@ -65,7 +74,9 @@ if(isset($_GET['id'])){
 
     <h2>Product Description</h2>
     <p><?= $row['product_description'] ?></p>
-    <p><a href="edit.php?id=<?=$row['product_id']?>">edit</a></p>
+    <?php if($admin_access): ?>
+    <h4>*As an admin you can edit posts => <a href="edit.php?id=<?=$row['product_id']?>**">edit</a></h4>
+    <?php endif ?>
     <form method= "POST" action="comment.php" class="form-horizontal">
         <input type="hidden" name="id" value=<?php echo $id?>>
         <label for="comment">Add Comment</label>

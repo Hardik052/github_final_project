@@ -1,5 +1,5 @@
 <?php
-require('../includes/connect.php');
+require('../connect.php');
 session_start();
 if($_SESSION['userId'] != 3){
     header(" location: ../index.php");
