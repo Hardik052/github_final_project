@@ -63,7 +63,7 @@ $statement->execute();
 if(isset($_SESSION['useruid'])){
            echo "<h4>Currently, Logged in user is: ". $_SESSION['useruid'] .  "</h4>";
             
-        }
+        } 
         ?>
 </section>
 
@@ -86,7 +86,7 @@ if(isset($_SESSION['useruid'])){
             <input type="submit" value="submit" name="submit" id="submit">
         </form>
     </div>
-   
+ 
     <div class="content">
     <a href="index.php">Home</a>
     &nbsp; &nbsp;
