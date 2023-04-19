@@ -1,30 +1,10 @@
 <?php
 include_once 'header.php';
 
-
-
-function loading_categories(){
-    global $db;
-
-    $query = "SELECT * FROM category ;";
-        // preparring sql for executoin
-    $statement = $db->prepare($query);
-    
-        //executing sql
-    $statement->execute();
-    $categories = [];
-    while ($x = $statement->fetch() ){
-        $categories[] = $x;
-        
-    }
-    
-    return $categories;
-}   
+  
 
 $login_user = false;
 $admin_access = false;
-
-
 function filter_category(){
     global $db;
 if(array_key_exists( 'category_id', $_GET)){
@@ -45,7 +25,6 @@ $row = $results;
 echo"else";
 }
 
-
 if(array_key_exists('useruid', $_SESSION ) ){
     $login_user =true;
 
@@ -53,6 +32,8 @@ if(array_key_exists('useruid', $_SESSION ) ){
         $admin_access = true;
     }
 }
+
+
 
 
 
@@ -92,10 +73,30 @@ $statement->execute();
 
 
 }
+$categories1 = loading_categories();
+
+function loading_categories(){
+    global $db;
+
+    $query = "SELECT * FROM category ;";
+        // preparring sql for executoin
+    $statement = $db->prepare($query);
+    
+        //executing sql
+    $statement->execute();
+    $categories = [];
+    while ($x = $statement->fetch() ){
+        $categories[] = $x;
+        
+    }
+    
+    return $categories;
+} 
 $statement = $db->prepare($query);  
 
 // Execution on the DB server is delayed until we execute().
 $statement->execute(); 
+
 
 
 
@@ -106,10 +107,13 @@ $statement->execute();
 ?>
 
 <section class="index-intro">
+    <a href="products.php">pp</a>
     <?php if ($admin_access): ?>
     <a href="users.php">Manage Users ! </a>
     <?php endif ?>
-    
+    <?php<?php foreach ($categories1 as $category) : ?>
+                <a class="col" href="index.php?category_id=<?= $category['category_id']?>"><div class="col box"> <?= $category['category_name'] ?> </div></a>
+            <?php endforeach ?>
 <?php if($admin_access): ?>
     <h4>*Admin is logged in ! </h4>
     <?php endif ?>
