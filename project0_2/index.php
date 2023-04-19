@@ -1,7 +1,51 @@
 <?php
 include_once 'header.php';
+
+
+
+function loading_categories(){
+    global $db;
+
+    $query = "SELECT * FROM category ;";
+        // preparring sql for executoin
+    $statement = $db->prepare($query);
+    
+        //executing sql
+    $statement->execute();
+    $categories = [];
+    while ($x = $statement->fetch() ){
+        $categories[] = $x;
+        
+    }
+    
+    return $categories;
+}   
+
 $login_user = false;
 $admin_access = false;
+
+
+function filter_category(){
+    global $db;
+if(array_key_exists( 'category_id', $_GET)){
+    $products = "SELECT * FROM products WHERE category_id = :category_id "; 
+    $statement = $db->prepare($products);
+    $statement->bindValue(':category_id', $categoryID);
+}
+else{
+    $products = "SELECT * FROM products ";
+    $statement = $db->prepare($products);
+}
+$statement->execute();
+$results = [];
+while ($x = $statement->fetch() ){
+    $results[] = $x;    
+}
+$row = $results;
+echo"else";
+}
+
+
 if(array_key_exists('useruid', $_SESSION ) ){
     $login_user =true;
 
@@ -62,6 +106,13 @@ $statement->execute();
 ?>
 
 <section class="index-intro">
+    <?php if ($admin_access): ?>
+    <a href="users.php">Manage Users ! </a>
+    <?php endif ?>
+    
+<?php if($admin_access): ?>
+    <h4>*Admin is logged in ! </h4>
+    <?php endif ?>
     <?php
 if(isset($_SESSION['useruid'])){
            echo "<h4>Currently, Logged in user is: ". $_SESSION['useruid'] .  "</h4>";

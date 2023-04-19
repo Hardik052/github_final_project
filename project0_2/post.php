@@ -55,7 +55,6 @@ if($_POST && trim($_POST['title'])!='' && trim($_POST['content']) != '' && trim(
 
     if(file_is_an_image($tempname, $filename)){
         $filename = $_FILES["uploadfile"]["name"];
-
     }else{
         $filename = `NULL`;
 

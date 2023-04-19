@@ -50,7 +50,8 @@ function createUser($full_name, $user_name, $pass, $email, $by_admin){
         login_user($user_name, $pass);
     }
     else{
-        header("location: ../admin/users.admin.php");
+        header("location: ../index.php");
+        
     }
 }
 
