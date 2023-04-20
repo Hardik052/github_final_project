@@ -25,10 +25,10 @@ $row = $results;
 echo"else";
 }
 
-if(array_key_exists('useruid', $_SESSION ) ){
+if(array_key_exists('user_id', $_SESSION ) ){
     $login_user =true;
 
-    if($_SESSION['useruid'] == 'Admin5252'){
+    if($_SESSION['user_id'] == 3){
         $admin_access = true;
     }
 }
@@ -107,7 +107,6 @@ $statement->execute();
 ?>
 
 <section class="index-intro">
-    <a href="products.php">pp</a>
     <?php if ($admin_access): ?>
     <a href="users.php">Manage Users ! </a>
     <?php endif ?>

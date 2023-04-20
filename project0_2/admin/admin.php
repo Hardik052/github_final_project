@@ -1,7 +1,7 @@
 <?php
 require('../connect.php');
 session_start();
-if($_SESSION['userId'] != 3){
+if($_SESSION['user_id'] != 3){
     header(" location: ../index.php");
     exit();
 }

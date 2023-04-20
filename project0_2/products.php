@@ -123,7 +123,8 @@ function loading_categories(){
     <?php endif ?>
     <?php
     if ($login_user): ?>
-     <a href="post.php">Add Product</a> 
+     <a href="post.php">Add Product</a>
+     <a href="categories.php">Manage Categories </a> 
     <div id="search_box" class="row">
         <form action="" method="post">
             <label for="sort_by" class="form-label">Sort By</label>

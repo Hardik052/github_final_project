@@ -19,8 +19,7 @@
     <div id= "main_nav">
     <ul>
         <li><a href="index.php">Home</a></li>
-        <li><a href="index.php">Shop</a></li>
-        <li><a href="edit.php">Store Location</a></li>
+        <li><a href="products.php">Products</a></li>
         <?php
         if(isset($_SESSION['useruid'])){
            echo "<li><a href='profile.php'>profile</a></li>";
