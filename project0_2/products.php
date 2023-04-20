@@ -1,9 +1,8 @@
 
-
 <?php
 
 require('connect.php');
-session_start();
+include('header.php');
 
 //user login check
 $login_user = false;
@@ -11,7 +10,7 @@ $admin_access = false;
 if(array_key_exists('user_id', $_SESSION ) ){
     $login_user =true;
 
-    if($_SESSION['user_id'] == 1){
+    if($_SESSION['user_id'] == 3){
         $admin_access = true;
     }
 }
@@ -115,12 +114,16 @@ function loading_categories(){
     <title>Welcome to my Blog!</title>
 </head>
 <body>
-<?php
-    include_once 'header.php'; ?>
 
 <div class="container">
+<?php if($admin_access): ?>
+    <h4>*Admin is logged in ! </h4>
+    <a href="users.php">Manage Users ! </a>
+
+    <?php endif ?>
     <?php
-    if ($login_user): ?> 
+    if ($login_user): ?>
+     <a href="post.php">Add Product</a> 
     <div id="search_box" class="row">
         <form action="" method="post">
             <label for="sort_by" class="form-label">Sort By</label>
@@ -141,7 +144,7 @@ function loading_categories(){
             <label for="category">Category</label> 
             <select class="form-select-sm" name="category">
                 <option value="all_categories"> ---All Categories--- </option>
-                <?php foreach($categories1 as $category_type): ?>
+                <?php foreach($cat as $category_type): ?>
                     <option value="<?= $category_type['category_id'] ?>"> <?= $category_type['category_name'] ?> </option>
                 <?php endforeach ?>
             </select>
@@ -155,7 +158,7 @@ function loading_categories(){
         <div id="category_bar">
         <a class="col" href="products.php?result_start=0"><div class="col box">All categories</div></a>
             <?php foreach ($cat as $category) : ?>
-                <a class="col" href="shop.php?category_id=<?= $category['category_id']?>&result_start=0 "><div class="col box"> <?= $category['category_name'] ?> </div></a>
+                <a class="col" href="products.php?category_id=<?= $category['category_id']?>&result_start=0 "><div class="col box"> <?= $category['category_name'] ?> </div></a>
             <?php endforeach ?>
         </div>
     </div> 
@@ -173,7 +176,7 @@ function loading_categories(){
                 <a href="newWhere.php?id=<?=$product['product_id']?>">
                     <?php 
                     if($product['product_image']):
-                        $folder = "./images/". $product['product_image'];
+                        $folder = "image/". $product['product_image'];
                         ?>
                         <img src="<?= $folder ?>" alt="image here">
 
