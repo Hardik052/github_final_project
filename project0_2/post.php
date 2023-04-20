@@ -30,6 +30,7 @@ function file_is_an_image($tempname, $filename) {
     $actual_file_extension   = pathinfo($filename, PATHINFO_EXTENSION);
     $file_extension_is_valid = in_array($actual_file_extension, $allowed_file_extensions);
 
+
     $mime_type_is_valid = false;
     if($file_extension_is_valid){
         $actual_mime_type        = getimagesize($tempname)['mime'];
