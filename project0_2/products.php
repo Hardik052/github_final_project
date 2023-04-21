@@ -105,27 +105,35 @@ function loading_categories(){
 ?>
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to my Blog!</title>
-</head>
-<body>
-
 <div class="container">
 <?php if($admin_access): ?>
+    <div class="container">
     <h4>*Admin is logged in ! </h4>
+    <div class="row">
+        <div class="box">
     <a href="users.php">Manage Users ! </a>
-    <a href="categories.php">Manage Categories </a> 
+</div>
+<div class="box">
+    <a href="categories.php">Manage Categories </a>
+</div>
+<div class="box"> 
     <a href="admin.php">Admin Access</a>
-
+</div>
+</div>
+</div>
     <?php endif ?>
     <?php
     if ($login_user): ?>
+    <div class="box">
      <a href="post.php">Add Product</a>
+    </div>
+    <div id="category_bar">
+        <a class="col" href="products.php?result_start=0"><div class="col box">All categories</div></a>
+            <?php foreach ($cat as $category) : ?>
+                <a class="col" href="products.php?category_id=<?= $category['category_id']?>&result_start=0 "><div class="col box"> <?= $category['category_name'] ?> </div></a>
+            <?php endforeach ?>
+        </div>
+    </div>
     <div id="search_box" class="row">
         <form action="" method="post">
             <label for="sort_by" class="form-label">Sort By</label>
@@ -141,7 +149,6 @@ function loading_categories(){
                 <option value="DESC">desc</option>
             </select>
 
-            <!-- only loads the category dropdown if there is no category already selected -->
             <?php if(!array_key_exists( 'category_id', $_GET)): ?>
             <label for="category">Category</label> 
             <select class="form-select-sm" name="category">
@@ -152,17 +159,11 @@ function loading_categories(){
             </select>
             <?php endif ?>
 
-            <input type="text" class="form-control" name="searchText" id="" placeholder="Type here to search" >
-            <input type="submit" value="Search" name="search">
+            <input type="text"  name="searchText" id="" placeholder="Type here to search" class="form-control" >
+            <input type="submit" value="Search" name="search" class='btn btn-outline-secondary'>
         </form>
         <?php endif ?>
 
-        <div id="category_bar">
-        <a class="col" href="products.php?result_start=0"><div class="col box">All categories</div></a>
-            <?php foreach ($cat as $category) : ?>
-                <a class="col" href="products.php?category_id=<?= $category['category_id']?>&result_start=0 "><div class="col box"> <?= $category['category_name'] ?> </div></a>
-            <?php endforeach ?>
-        </div>
     </div> 
 
 
@@ -172,9 +173,9 @@ function loading_categories(){
         <h3> <?= count($row)?> Results Found !!!</h3>
         <?php foreach ($row as $product): ?>
 
-        <div>
+        <div class="container">
             
-            <div >
+            <div class="box">
                 <a href="newWhere.php?id=<?=$product['product_id']?>">
                     <?php 
                     if($product['product_image']):
@@ -223,7 +224,7 @@ function loading_categories(){
     
 
 
-    
+        </div> 
 </body>
 
 </html>

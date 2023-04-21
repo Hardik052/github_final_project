@@ -18,22 +18,13 @@ if(array_key_exists('user_id', $_SESSION ) ){
 ?>
 
 
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+    <div class="container">
     <h2><a href="products.php">GENERATION Z ! </a></h2>
+    <div class="box">
     <h2>we are street-wear re-selling company, we sell hoodies, t-shirts, sneakers at very reasonable rates !</h2>
     <h2>Come and visit us Monday to Friday 10 AM to 7 PM.</h2>
-
+</div>
+</div>
     
     
 </body>

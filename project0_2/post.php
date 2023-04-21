@@ -13,6 +13,7 @@
 
 require('connect.php');
 require('authenticate.php');
+require('header.php');
 
 
  
@@ -119,60 +120,39 @@ $row = loading_categories();
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="main.css">
-    <title>My Blog Post!</title>
-</head>
-<body>
-<header>
-    <!--- nav bar and other stuff on top-->
-    <!-- put a logo and social handles-->
-    <!-- nav bar-->
-    <div id= "main_nav">
-    <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="shop.php">Shop</a></li>
-        <li><a href="new_item.php">Sell / Donate</a></li>
-        <li><a href="contact_us.php">Contact Us</a></li>
-        <li><a href="edit.php">Store Location</a></li>
-    </ul>
-    </div>
 
-</header>
-<div class="content">    
-<a href="index.php">Home</a>
-    &nbsp; &nbsp;
-    <a href="post.php">New Posts</a>
+
+   <div class="container">
+   
+<div class="content"> 
+    <div class="box">
     <h1><a href="index.php">Generation Z ! </a></h1>
+ </div>
     <h1>New Post</h1>
     <!-- Remember that alternative syntax is good and html inside php is bad -->
     <form action="post.php" method="post" enctype="multipart/form-data">
-        <label for="title" >title</label>
-        <input id="title" name="title">
+        <label for="title" class="form-label" >title</label>
+        <input id="title" name="title" class="form-control">
         &nbsp;  &nbsp;  &nbsp; 
-        <label for="content">content</label>
+        <label for="content" class="form-label">content</label>
         <textarea name="content" id="content" cols="30" rows="10"></textarea>
         <div class="form-group">
-                <input class="form-control" type="file" name="uploadfile" value="" />
+                <input class="form-control" type="file" name="uploadfile" value="" class="form-control"/>
             </div>
 
-            <label for="category">Category</label> 
+            <label for="category" class="form-label">Category</label> 
         <select name="category">
             <?php foreach($row as $category_type): ?>
                 <option value="<?= $category_type['category_id'] ?>"> <?= $category_type['category_name'] ?> </option>
             <?php endforeach ?>
         </select>
-        <label for="product_price">Product Price</label>
-        <input type="number" name="product_price" id="product_price">
+        <label for="product_price" >Product Price</label>
+        <input type="number" name="product_price">
 
-        <input type="submit">
+        <input type="submit" class="form-control">
 
     </form>
-</div>   
+</div>  
+    </div> 
 </body>
 </html>

@@ -62,20 +62,23 @@ if(isset($_GET['id'])){
 
 
 
-<div class="content">    
-<a href="index.php">Home</a>
-    &nbsp; &nbsp;
-    <a href="post.php">New Product</a>
+
+</html>
+<div class="container">    
+     
     <h1><a href="index.php">Generation Z !</a></h1>
+
     <!-- Remember that alternative syntax is good and html inside php is bad -->
 
-    <h2>Product name</h2>
-    <p><?= $row['product_name'] ?></p>
+    <div class="box"><h2>Product name</h2></div>
+    <h4><?= $row['product_name'] ?></h4>
 
-    <h2>Product Description</h2>
-    <p><?= $row['product_description'] ?></p>
+    <div class="box"><h2>Product Description</h2></div>
+    <h4><?= $row['product_description'] ?></h4>
     <?php if($admin_access): ?>
-    <h4>*As an admin you can edit posts => <a href="edit.php?id=<?=$row['product_id']?>**">edit</a></h4>
+        <div class="box">
+    <p>*As an admin you can edit posts => <a href="edit.php?id=<?=$row['product_id']?>**">edit</a></p>
+    </div>
     <?php endif ?>
     <form method= "POST" action="comment.php" class="form-horizontal">
         <input type="hidden" name="id" value=<?php echo $id?>>
@@ -95,7 +98,8 @@ if(isset($_SESSION['useruid'])){
 </div>
 
 <div>
-    <h1>All Comments</h1>
+    <div class="box"><h1>All Comments</h1></div>
+    <div class="container">
     <?php if(count($row3) > 0):
             foreach ($row3 as $commentData): ?>
                 <div>
@@ -111,6 +115,7 @@ if(isset($_SESSION['useruid'])){
                     <h2>No comments here</h2>
                 </div>
             <?php endif ?>
+    </div>
    
 </div>
 </body>

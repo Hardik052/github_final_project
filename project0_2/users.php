@@ -1,7 +1,7 @@
 <?php
 require 'connect.php';
 require 'authenticate.php';
-session_start();
+include 'header.php';
 if($_SESSION['user_id'] != '3'){
     header(" location: index.php");
     exit();
@@ -77,15 +77,6 @@ function delete_user(){
     } // add an alert to confirm delete
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to my Blog!</title>
-</head>
-<body>
 
 <div class="container">
     <form class="border m-3 p-2" action="includes/signup.inc.php" method="post">
@@ -128,15 +119,15 @@ function delete_user(){
                         <label for="fullname" class="form-label">FullName</label>
                     </div>
                     
-                   <input type='submit' value='edit' class='btn btn-outline-secondary' name='edit'>
+                   <input type='submit' value='edit'  name='edit'>
 
                 <?php else: ?>
                     <h2><?= $user['userName']?></h2>
                 <?php endif ?>
                 
-                <input type="submit" value="Delete" class="btn btn-danger" name="delete">
+                <input type="submit" value="Delete" name="delete">
 
-                <h6>________________</h6>
+               
             </form>
 
         <?php endforeach ?>

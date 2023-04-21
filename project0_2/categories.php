@@ -93,15 +93,6 @@ if(isset($_POST)){
     }
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
 
 
 <div class="container">
@@ -118,21 +109,21 @@ if(isset($_POST)){
     </select>
    
 
-    <label for="rename" >Rename</label>
-    <input type="text"name="rename">
+    <label for="rename" class="form-label" >Rename</label>
+    <input type="text"name="rename" >
 
-    <input type="submit" value="Rename Category" name="updateCategory">&nbsp;&nbsp;
-    <input type="submit" value="Delete Category" name="deleteCategory">
+    <input type="submit" value="Rename Category" name="updateCategory" class="form-control">&nbsp;&nbsp;
+    <input type="submit" value="Delete Category" name="deleteCategory" class="form-control">
     </form>
 
 
     <!-- adding new categories--->
-    <div class="container mt-5 p-3">
+    <div class="container ">
     <form action="categories.php" method="post">
-        <label for="new_category" >Category</label>
-        <input type="text" name="new_category">
+        <label for="new_category" class="form-label">Add Category</label>
+        <input type="text" name="new_category" >
 
-        <input type="submit" value="Add Category" name="addCategory">
+        <input type="submit" value="Add Category" name="addCategory" class="form-control">
         
     </form>
     </div>

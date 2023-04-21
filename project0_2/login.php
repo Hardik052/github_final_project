@@ -1,6 +1,8 @@
 <?php
  include_once 'header.php';
 ?>
+
+
 <section class="signup-form">
     <h2>login</h2>
     <form action="includes/login.inc.php" method="post">
@@ -9,6 +11,8 @@
         <button type="submit" name="submit">SLog In</button>
     </form>
 </section>
+</body>
+</html>
 <?php
 if(isset($_GET["error"])){
     if($_GET["error"] == "'empty_fields'"){

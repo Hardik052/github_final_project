@@ -1,8 +1,8 @@
 <?php
-require('../header.php');
-require('../connect.php');
+require('header.php');
+require('connect.php');
 if($_SESSION['user_id'] != 3){
-    header(" location: ../index.php");
+    header(" location: index.php");
     exit();
 }
 $comments = loading_comments();
@@ -74,15 +74,7 @@ function delete_comment(){
 }
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Comment Section !</title>
-</head>
-<body>
+
 <?php if(! $edit_mode): ?>
 
 <h4><a href="comments.admin.php?edit='true'">Edit</a></h4>
