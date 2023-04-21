@@ -50,6 +50,7 @@ if($_POST && trim($_POST['title'])!='' && trim($_POST['content']) != '' && trim(
     $filename = $_FILES["uploadfile"]["name"];
   $tempname = $_FILES["uploadfile"]["tmp_name"];
    $folder = "./image/" . $filename;
+   $actual_file_extension   = pathinfo($filename, PATHINFO_EXTENSION);
     $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -85,6 +86,7 @@ if($_POST && trim($_POST['title'])!='' && trim($_POST['content']) != '' && trim(
         if(file_is_an_image($tempname, $filename)){
         if (move_uploaded_file($tempname, $folder)) {
             echo "<h3>  Image uploaded successfully!</h3>";
+            header("location: resize.php?image=$folder&extension=$actual_file_extension");
             
         }
         } 

@@ -100,9 +100,11 @@ else {
         <div class="form-group">
                 <input class="form-control" type="file" name="uploadfile" value="" />
             </div>
+            <?php if( $blog['product_image']): ?>
 
             <label for="delete_image">Check Here to Delete Image: </label>
         <input type="checkbox" name="delete_image" id="delete_image" value="delete_image">;
+        <?php endif ?>
         <input type="submit" value="edit">
       
         

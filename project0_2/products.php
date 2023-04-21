@@ -37,7 +37,7 @@ if($_POST){
 
 else{
     if(array_key_exists( 'category_id', $_GET)){
-        $products = "SELECT * FROM products WHERE category_id = :category_id "; 
+        $products = "SELECT * FROM products WHERE category_id = :category_id & product_name= :product_name"; 
         $statement = $db->prepare($products);
         $statement->bindValue(':category_id', $categoryID);
     }
@@ -69,8 +69,8 @@ function search_bar_filter($search_value, $sortBy, $sortType, $category_id){
     $statement->execute();
 
     $results = [];
-    while ($x = $statement->fetch() ){
-        $results[] = $x;
+    while ($search = $statement->fetch() ){
+        $results[] = $search;
         
     }
     
@@ -90,17 +90,13 @@ function loading_categories(){
         //executing sql
     $statement->execute();
     $categories = [];
-    while ($x = $statement->fetch() ){
-        $categories[] = $x;
+    while ($cag = $statement->fetch() ){
+        $categories[] = $cag;
         
     }
     
     return $categories;
 }
-
-//maybe use session to savve  and load the radio selection
-
-
 
 ?>
 
@@ -159,7 +155,7 @@ function loading_categories(){
             </select>
             <?php endif ?>
 
-            <input type="text"  name="searchText" id="" placeholder="Type here to search" class="form-control" >
+            <input type="text"  name="searchText" placeholder="Type here to search" class="form-control" >
             <input type="submit" value="Search" name="search" class='btn btn-outline-secondary'>
         </form>
         <?php endif ?>

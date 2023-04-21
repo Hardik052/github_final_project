@@ -1,11 +1,11 @@
 <?php
 
-function imageResize($image, $filetype){
-    if($filetype == 'png'){
+function resize_image($image, $extension){
+    if($extension == 'png'){
         $image_ig = imagecreatefrompng($image);
     }
-    else if($filetype == 'jpg' ||$filetype == 'jpeg' ){
-        $og_image = imagecreatefromjpeg($image);
+    else if($extension == 'jpg' ||$extension == 'jpeg' ){
+        $image_ig = imagecreatefromjpeg($image);
     }
     else{
         header("Location: index.php");
@@ -14,19 +14,19 @@ function imageResize($image, $filetype){
     $width = imagesx($image_ig);
     $height= imagesy($image_ig);
 
-    $newwidth= 400;
-    $newheight= 400;
+    $newwidth= 500;
+    $newheight= 500;
     $new_image= imagecreate($newwidth,$newheight);
 
-    imagecopyresized($new_image,$og_image,0,0,0,0,$newwidth,$newheight,$width,$height);
+    imagecopyresized($new_image,$image_ig,0,0,0,0,$newwidth,$newheight,$width,$height);
     imagepng($new_image,$image);
     imagedestroy($image_ig);
     imagedestroy($new_image);
 }
 
-$image_path = $_GET['path'];
-$filetype = $_GET['filetype'];
-imageResize($image_path, $filetype);
+$image = $_GET['image'];
+$extension = $_GET['extension'];
+resize_image($image, $extension);
 header("Location: index.php");
 ?>
 

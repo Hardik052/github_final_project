@@ -19,7 +19,7 @@ if(array_key_exists('useruid', $_SESSION ) ){
 ****************/
 
 require('connect.php');
-$query = "SELECT * FROM products WHERE product_id = :product_id LIMIT 1";
+$query = "SELECT * FROM products WHERE product_id = :product_id  LIMIT 1";
 
  // A PDO::Statement is prepared from the query.
  $statement = $db->prepare($query);  

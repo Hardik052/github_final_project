@@ -76,7 +76,7 @@ if(isset($_POST)){
 
     if(isset($_POST['addCategory']) && trim($_POST['new_category']) != '' ){
         addCategory();
-        header("location: admin/admin.php"); 
+        header("location: admin.php"); 
         exit();
     }
 
