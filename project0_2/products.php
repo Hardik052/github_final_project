@@ -120,6 +120,7 @@ function loading_categories(){
     <h4>*Admin is logged in ! </h4>
     <a href="users.php">Manage Users ! </a>
     <a href="categories.php">Manage Categories </a> 
+    <a href="admin.php">Admin Access</a>
 
     <?php endif ?>
     <?php

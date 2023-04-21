@@ -9,7 +9,7 @@
 ****************/
 
 require('connect.php');
-if (isset($_POST['delete_id'])) { // Retrieve quote to be deleted, if id GET parameter is in URL.
+if (isset($_POST['delete_id'])) { 
         $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
         
         // Build SQL query
@@ -21,7 +21,7 @@ if (isset($_POST['delete_id'])) { // Retrieve quote to be deleted, if id GET par
         $blog = $statement->fetch();
     } 
     else {
-        $id = false; // False 
+        $id = false; 
     }
 
    
@@ -38,9 +38,6 @@ if (isset($_POST['delete_id'])) { // Retrieve quote to be deleted, if id GET par
 </head>
 <body>
 <header>
-    <!--- nav bar and other stuff on top-->
-    <!-- put a logo and social handles-->
-    <!-- nav bar-->
     <div id= "main_nav">
     <ul>
         <li><a href="#">Home</a></li>

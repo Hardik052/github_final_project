@@ -1,8 +1,8 @@
 <?php
-require('../connect.php');
+require('connect.php');
 session_start();
 if($_SESSION['user_id'] != 3){
-    header(" location: ../index.php");
+    header(" location: index.php");
     exit();
 }
 ?>
@@ -17,11 +17,10 @@ if($_SESSION['user_id'] != 3){
     <title>product name here</title>
 </head>
 <body>
-    <a href="users.admin.php"><div>Manage All Users</div></a>
+    <a href="users.php"><div>Manage All Users</div></a>
     <a href="comments.admin.php"><div> Comments Access</div></a>
-    <a href="new_category.admin.php"><div>Manage categories</div></a>
-    <a href="new_item.admin.php"><div>Add Items</div></a>
-    <a href="../shop.php"><div>View/ Edit Items</div></a>
+    <a href="categories.php"><div>Manage categories</div></a>
+    <a href="post.php"><div>Items</div></a>
 
 </body>
 </html>

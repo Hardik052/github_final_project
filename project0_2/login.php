@@ -9,3 +9,15 @@
         <button type="submit" name="submit">SLog In</button>
     </form>
 </section>
+<?php
+if(isset($_GET["error"])){
+    if($_GET["error"] == "'empty_fields'"){
+        echo "<p>Fill in all the blanks</p>";
+
+    }
+    else if($_GET["error"] == "'doesnot_exist'"){
+        echo "<p>Incorrect Login information</p>";
+    }
+   
+}
+?>

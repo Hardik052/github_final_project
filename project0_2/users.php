@@ -2,7 +2,7 @@
 require 'connect.php';
 require 'authenticate.php';
 session_start();
-if($_SESSION['useruid'] != 'Admin5252'){
+if($_SESSION['user_id'] != '3'){
     header(" location: index.php");
     exit();
 }
@@ -106,7 +106,7 @@ function delete_user(){
         <label for="pwd_repeat" class="form-label">Repeat Password</label>
         <input type="password" class="form-control" name="pwdrepeat" placeholder=" Repeat Password ...">
 
-        <input type="hidden" name="by_admin" value= 'Admin5252'>
+        <input type="hidden" name="by_admin" value= '3'>
 
         <input type="submit" class="btn btn-primary" value="Create User" name="submit">
     </form>

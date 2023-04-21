@@ -5,7 +5,7 @@ $admin_access = false;
 if(array_key_exists('useruid', $_SESSION ) ){
     $login_user =true;
 
-    if($_SESSION['useruid'] == 'Admin5252'){
+    if($_SESSION['user_id'] == 3){
         $admin_access = true;
     }
 }

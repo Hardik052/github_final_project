@@ -22,7 +22,6 @@
         <li><a href="products.php">Products</a></li>
         <?php
         if(isset($_SESSION['useruid'])){
-           echo "<li><a href='profile.php'>profile</a></li>";
             echo "<li><a href='includes/logout.inc.php'>logout</a></li>";
         }
     else{

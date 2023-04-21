@@ -13,4 +13,25 @@
         <button type="submit" name="submit">Sign up</button>
     </form>
 </section>
+<?php
+if(isset($_GET["error"])){
+    if($_GET["error"] == "'empty_fields'"){
+        echo "<p>Fill in all the blanks</p>";
 
+    }
+    else if($_GET["error"] == "'invalid_user_name'"){
+        echo "<p>Invalid user name</p>";
+    }
+    else if($_GET["error"] == "'invalid_email'"){
+        echo "<p>Invalid email</p>";
+    }
+    else if($_GET["error"] == "'user_name_exists'"){
+        echo "<p>UserName already exist</p>";
+    }
+    else if($_GET["error"] == "'password_does_not_match'"){
+        echo "<p>Password does not match, Please Try Again !</p>";
+    }
+    
+
+}
+?>
